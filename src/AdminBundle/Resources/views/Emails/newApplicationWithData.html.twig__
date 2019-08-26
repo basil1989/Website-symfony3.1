@@ -1,0 +1,66 @@
+{% spaceless %}
+    {% if form is defined %}
+        {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    {% endif %}
+    <head>
+        <style>
+            body {
+                font: 12px tahoma;
+            }
+        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+              crossorigin="anonymous">
+    </head>
+    <body>
+    {{ content |raw }}
+    <br/><br/>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <a href="{{ url('admin_app_view', {'id': app.id}) }}">
+                Click to view application on margaretsfund.org
+            </a>
+        </div>
+    </div>
+
+
+    <table width="100%" border="0">
+        <tbody>
+        <tr>
+            <td>
+                <h3 class="text-center">
+                    Application nr {{ app.id }}
+                </h3>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="text-center">
+                    <h3>Caring Proffessional</h3>
+                    <p>Name: {{ app.user.username }}</p>
+                    <p>Job title: {{ app.user.jobtitle }}</p>
+                    <p>Organization: {{ app.user.organisation }}</p>
+                    <p>Charity Number: {{ app.user.charityNuber }}</p>
+                    <p>Work address: {{ app.user.workAddress }}</p>
+                    <p>Work postcode: {{ app.user.workPostcode }}</p>
+                    <p>Work telephone: {{ app.user.workTelephone }}</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="col-xs-12 text-center">
+                    <h3>
+                        <a href="{{ url('admin_app_view', {'id': app.id}) }}">Application details</a>
+                    </h3>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </body>
+
+
+{% endspaceless %}

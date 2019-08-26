@@ -1,0 +1,667 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}" />
+    <style>
+        @media print {
+          @page {
+            margin: 0;
+          }
+          body {
+            margin: 2cm;
+          }
+          .endpage {
+            page-break-after: always;
+            break-after: always;
+          }
+        }
+
+        body {
+          font: 12px tahoma;
+        }
+
+        h3 {
+          font: 18px tahoma;
+        }
+
+        .container-data {
+          margin-top: 10px;
+        }
+        .container-data div.row {
+          margin: 1px 0;
+        }
+    </style>
+<body>
+<div class="container">
+
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h3>Application #{{ app.id }} </h3>
+        </div>
+
+        <div class="col-xs-12 text-center">
+            <h4>{{ app.name }}</h4>
+        </div>
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xs-7">
+            <h3>Caring Professional</h3>
+
+            <div class="row col-xs-12">
+                <div class="col-xs-4">Name:</div>
+                <div class="col-xs-8">{{ app.user.username }}</div>
+            </div>
+            <div class="row col-xs-12">
+                <div class="col-xs-4">Job title:</div>
+                <div class="col-xs-8">
+                    {% if app.user.jobtitle == "" %}
+                        N/A
+                    {% else %}
+                        {{ app.user.jobtitle }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row col-xs-12">
+                <div class="col-xs-4">Organization:</div>
+                <div class="col-xs-8">
+                    {% if app.user.organisation == "" %}
+                        N/A
+                    {% else %}
+                        {{ app.user.organisation }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row col-xs-12">
+                <div class="col-xs-4">Charity Number:</div>
+                <div class="col-xs-8">
+                    {% if app.user.charityNuber == "" %}
+                        N/A
+                    {% else %}
+                        {{ app.user.charityNuber }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row col-xs-12">
+                <div class="col-xs-4">Work address:</div>
+                <div class="col-xs-8">
+                    {% if app.user.workAddress == "" %}
+                        N/A
+                    {% else %}
+                        {{ app.user.workAddress }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row col-xs-12">
+                <div class="col-xs-4">Work postcode:</div>
+                <div class="col-xs-8">
+                    {% if app.user.workPostcode == "" %}
+                        N/A
+                    {% else %}
+                        {{ app.user.workPostcode }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row col-xs-12">
+                <div class="col-xs-4">Work telephone:</div>
+                <div class="col-xs-8">
+                    {% if app.user.workTelephone == "" %}
+                        N/A
+                    {% else %}
+                        {{ app.user.workTelephone }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-5">
+            <h3 class="text-center">Application</h3>
+
+            <div class="row col-xs-12 text-right">
+                <div class="col-xs-7">Id:</div>
+                <div class="col-xs-5">
+                    {% if app.id == "" %}
+                        N/A
+                    {% else %}
+                        {{ app.id }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row col-xs-12 text-right">
+                <div class="col-xs-7">Caring pro id:</div>
+                <div class="col-xs-5">
+                    {% if app.user.id == "" %}
+                        N/A
+                    {% else %}
+                        {{ app.user.id }}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row col-xs-12 text-right">
+                <div class="col-xs-7">Date:</div>
+                <div class="col-xs-5">
+                    {% if app.date | date('d-m-Y') == "" %}
+                        N/A
+                    {% else %}
+                        {{ app.date | date('d-m-Y') }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data">
+
+        <h3>Application Details</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Name:</div>
+            <div class="col-xs-9">
+                {% if app.name == "" %}
+                    N/A
+                {% else %}
+                    {{ app.name }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Age:</div>
+            <div class="col-xs-9">
+                {% if app.age == "" %}
+                    N/A
+                {% else %}
+                    {{ app.age }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Address:</div>
+            <div class="col-xs-9">
+                {% if app.address == "" %}
+                    N/A
+                {% else %}
+                    {{ app.address }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Type of illness:</div>
+            <div class="col-xs-9">
+                {% if app.illness == "" %}
+                    N/A
+                {% else %}
+                    {{ app.illness }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Purpose of grant:</div>
+            <div class="col-xs-9">
+                {% if app.purpose == "" %}
+                    N/A
+                {% else %}
+                    {{ app.purpose }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Amount of grant:</div>
+            <div class="col-xs-9">
+                {% if app.amount == "" %}
+                    N/A
+                {% else %}
+                    {{ app.amount }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Organisation to whom cheque should be made:</div>
+            <div class="col-xs-9">
+                {% if app.organisation == "" %}
+                    N/A
+                {% else %}
+                    {{ app.organisation }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Family in a position to assist</div>
+            <div class="col-xs-9">
+                {% if app.family == "" %}
+                    N/A
+                {% else %}
+                    {{ app.family }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Does this person pay tax in the UK?</div>
+            <div class="col-xs-9">
+                {% if app.taxUk == "n/a" %}
+                    N/A
+                {% else %}
+                    {{ app.taxUk }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Is the item/service you are seeking available on the NHS?</div>
+            <div class="col-xs-9">
+                {% if app.nhs == 1 %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Please identify the steps you have taken to apply for funding elsewhere</div>
+            <div class="col-xs-9">
+                {% if app.steps == "" %}
+                    N/A
+                {% else %}
+                    {{ app.steps }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data">
+
+        <h3>Weekly income</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Wages, Salary, Pension</div>
+            <div class="col-xs-9">
+                {% if app.wages == "" %}
+                    N/A
+                {% else %}
+                    {{ app.wages }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data endpage">
+
+        <h3>Benefits</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Housing benefit</div>
+            <div class="col-xs-9">
+                {% if app.housing == "" %}
+                    N/A
+                {% else %}
+                    {{ app.housing }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Council tax benefit</div>
+            <div class="col-xs-9">
+                {% if app.tax == "" %}
+                    N/A
+                {% else %}
+                    {{ app.tax }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Job seekers allowance</div>
+            <div class="col-xs-9">
+                {% if app.employment == "" %}
+                    N/A
+                {% else %}
+                    {{ app.employment }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Income support</div>
+            <div class="col-xs-9">
+                {% if app.incomesupport == "" %}
+                    N/A
+                {% else %}
+                    {{ app.incomesupport }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Child benefit</div>
+            <div class="col-xs-9">
+                {% if app.childbenefit == "" %}
+                    N/A
+                {% else %}
+                    {{ app.childbenefit }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Child tax credit</div>
+            <div class="col-xs-9">
+                {% if app.childtax == "" %}
+                    N/A
+                {% else %}
+                    {{ app.childtax }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Working tax credit</div>
+            <div class="col-xs-9">
+                {% if app.workingtaxcredit == "" %}
+                    N/A
+                {% else %}
+                    {{ app.workingtaxcredit }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Incapacity benefit</div>
+            <div class="col-xs-9">
+                {% if app.incapacitybenefit == "" %}
+                    N/A
+                {% else %}
+                    {{ app.incapacitybenefit }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Attendance allowance</div>
+            <div class="col-xs-9">
+                {% if app.carersallowence == "" %}
+                    N/A
+                {% else %}
+                    {{ app.carersallowence }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Personal Independence Payment, P.I.P.</div>
+            <div class="col-xs-9">
+                {% if app.personalindependence == "" %}
+                    N/A
+                {% else %}
+                    {{ app.personalindependence }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Disability living allowance (care /mobility)</div>
+            <div class="col-xs-9">
+                {% if app.disability == "" %}
+                    N/A
+                {% else %}
+                    {{ app.disability }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Other Disablement Allowance</div>
+            <div class="col-xs-9">
+                {% if app.other == "" %}
+                    N/A
+                {% else %}
+                    {{ app.other }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <br /><br /><br /><br />
+            <h5 style="display:inline">Application #{{ app.id }}</h5> --  <h6 style="display:inline"> {{ app.name }} </h6>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data">
+
+        <h3>Weekly Expenditure</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Rent</div>
+            <div class="col-xs-9">
+                {% if app.rent == "" %}
+                    N/A
+                {% else %}
+                    {{ app.rent }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Mortgages</div>
+            <div class="col-xs-9">
+                {% if app.mortgages == "" %}
+                    N/A
+                {% else %}
+                    {{ app.mortgages }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Housing cost, Council Tax, Service charge, Insurance</div>
+            <div class="col-xs-9">
+                {% if app.housingcost == "" %}
+                    N/A
+                {% else %}
+                    {{ app.housingcost }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data">
+
+        <h3>Utilities</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Water / Sewage / Gas/Electric / Coal and other Fuels(i.e. Bottled Gas)</div>
+            <div class="col-xs-9">
+                {% if app.utilities == "" %}
+                    N/A
+                {% else %}
+                    {{ app.utilities }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data">
+
+        <h3>House Keeping</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Food, General Housekeeping including subscriptions, papers, magazines, cigarettes, sweets, alcohol</div>
+            <div class="col-xs-9">
+                {% if app.food == "" %}
+                    N/A
+                {% else %}
+                    {{ app.food }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data">
+
+        <h3>Children</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Childcare, general expenses</div>
+            <div class="col-xs-9">
+                {% if app.childcare == "" %}
+                    N/A
+                {% else %}
+                    {{ app.childcare }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data">
+
+        <h3>Other Expenditure</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Liabilities, Debts, please list</div>
+            <div class="col-xs-9">
+                {% if app.liabilities == "" %}
+                    N/A
+                {% else %}
+                    {{ app.liabilities }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Maintenance / Court Fines / Orders / Life Insurance / HP / TV Licence / Telephone</div>
+            <div class="col-xs-9">
+                {% if app.maintenance == "" %}
+                    N/A
+                {% else %}
+                    {{ app.maintenance }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data">
+
+        <h3>Travel</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Fares, Car costs inc. insurance, MOT. tax, repayments</div>
+            <div class="col-xs-9">
+                {% if app.fares == "" %}
+                    N/A
+                {% else %}
+                    {{ app.fares }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data endpage">
+
+        <h3>Health</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Prescriptions, Special needs</div>
+            <div class="col-xs-9">
+                {% if app.specialneeds == "" %}
+                    N/A
+                {% else %}
+                    {{ app.specialneeds }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <br /><br /><br /><br />
+            <h5 style="display:inline">Application #{{ app.id }}</h5> --  <h6 style="display:inline"> {{ app.name }} </h6>
+        </div>
+    </div>
+
+
+
+    <div class="row container-data">
+
+        <h3>Totals</h3>
+
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Total weekly income</div>
+            <div class="col-xs-9">
+                {% if app.weekincome == "" %}
+                    N/A
+                {% else %}
+                    {{ app.weekincome }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Total weekly expenditure</div>
+            <div class="col-xs-9">
+                {% if app.weekexpenditure == "" %}
+                    N/A
+                {% else %}
+                    {{ app.weekexpenditure }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <div class="col-xs-3">Savings</div>
+            <div class="col-xs-9">
+                {% if app.savings == "" %}
+                    N/A
+                {% else %}
+                    {{ app.savings }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row container-data">
+
+        <h3>Other Comments</h3>
+
+        <div class="col-xs-2"></div>
+        <div class="row col-xs-8 col-xs-offset-2">
+            {% if app.othercomment == "" %}
+                N/A
+            {% else %}
+                {{ app.othercomment }}
+            {% endif %}
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+
+</div>
+<br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+
+<script src="{{ asset('assets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script>window.print();</script>
+</body>

@@ -1,0 +1,56 @@
+imports:
+  - { resource: 'controllerAsService/controllers.yml' }
+
+parameters:
+    my_admin_bundle.menu_listener.class: 'AdminBundle\EventListener\MyMenuItemListListener'
+    my_admin_bundle.show_user_listener.class: 'AdminBundle\EventListener\MyShowUserListener'
+
+services:
+    authentication.handler.login_success_handler:
+        class:  'AdminBundle\Security\LoginSuccessHandler'
+        arguments:  ['@router', '@security.authorization_checker','@cache.app']
+
+    creator:
+        class: 'AdminBundle\Service\StaticPageCreator'
+        arguments: ["@doctrine.orm.entity_manager","%static_page%","%email_templates%" ]
+
+    my_admin_bundle.menu_listener:
+        class: '%my_admin_bundle.menu_listener.class%'
+        arguments: ['@security.authorization_checker']
+        tags:
+            - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }
+
+    my_admin_bundle.show_user_listener:
+        class: '%my_admin_bundle.show_user_listener.class%'
+        arguments: ["@security.token_storage"]
+        tags:
+            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
+
+    app.form.registration:
+        class: 'AdminBundle\Form\RegistrationType'
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+
+    appliction.event_listener2:
+        class: 'AdminBundle\EventListener\ApplicationEventListener'
+        arguments: ["@mailer","%admin_email%","@doctrine.orm.default_entity_manager","@session.flash_bag","@twig","%mailer_noreply%","@form.factory"]
+        tags:
+           - { name: kernel.event_listener, event: approve.application, method: sendEmailToUserOnApprovedApp  }
+           - { name: kernel.event_listener, event: approve.application, method: sendEmailToAdminOnApprovedApp  }
+           - { name: kernel.event_listener, event: wait.application, method: sendEmailToUserOnWaitingApp  }
+           - { name: kernel.event_listener, event: pledge.application, method: sendEmailToUserOnPledgedApp  }
+           - { name: kernel.event_listener, event: approve.application, method: lockApp  }
+           - { name: kernel.event_listener, event: reject.application, method: sendEmailToUserOnRejectedApp  }
+           - { name: kernel.event_listener, event: reject.application, method: sendEmailToAdminOnRejectedApp  }
+
+    appliction.event_listener.importcvs:
+        class: 'AdminBundle\EventListener\ImportCvsListener'
+        arguments: ["@doctrine.orm.default_entity_manager"]
+        tags:
+           - { name: kernel.event_listener, event: import.client, method: importUsers  }
+           - { name: kernel.event_listener, event: import.app, method: importApplications  }
+
+    application.cache_adapter:
+        class: 'AdminBundle\Service\CacheAdapter'
+        arguments: ['@cache.app', '@service_container']

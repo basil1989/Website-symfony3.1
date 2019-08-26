@@ -1,0 +1,15 @@
+# This file is auto-generated during the composer install
+parameters:
+    static_page:
+      - "About"
+      - "How We Help"
+      - "Common Questions"
+      - "Donate to Margaret's Fund"
+      - "Contact Us"
+      - "Links"
+    email_templates:
+      - "New Application"
+      - "Application Approved"
+      - "Application Rejected"
+
+

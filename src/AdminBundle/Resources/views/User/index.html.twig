@@ -1,0 +1,151 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% block page_title %}Registered Users {% endblock %}
+{% block page_content %}
+    <div class="box">
+        <div class="box-body">
+            <table id="table-user" style="width:100%;" class="display table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="col-lg-1">User Id</th>
+                    <th class="col-lg-2">Username</th>
+                    <th class="col-lg-3">E-mail</th>
+                    <th class="col-lg-1">Status</th>
+                    <th class="col-lg-1">Roles</th>
+                    <th class="col-lg-1">GDPR</th>
+                    <th class="col-lg-3">Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <div class="row " style="margin-top:30px;">
+                <div class="col-sm-12 ">
+                    <address style="font-size:10px;">
+                        <b>Roles info:</b><br/>
+                        User - Registered User, that can send applications <br/>
+                        Admin - Registered User with access to Admin Panel(Users/Applications)<br/>
+                        SuperAdmin - User with full Admin Panel access (Full Access)
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block page_modals %}
+
+<!-- Modal -->
+<div class="modal fade" id="modal-sure-delete" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="myModalLabel">Delete User</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger progress-bar-striped text-center" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          Are you sure you want to delete this user?<br />
+          Once deleted it can not be recovered
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a class="btn btn-danger" href="">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block javascripts_inline %}
+    <script>
+        $(window).on('load', function () {
+            var selector = '#table-user';
+
+            table = $(selector).dataTable();
+            table.fnDestroy();
+
+            $(selector).dataTable({
+                ajax:         "{{ url('admin_user_datatable') }}",
+                "order":      [[0, "desc"]],
+                "columnDefs": [
+                    {
+                        "render":  function (data, type, row) {
+                            htmlStr = '<div class="btn-group" data-status="' + row.enabled + '" data-role="' + row.roles + '">';
+
+                            {% if not is_granted('ROLE_SUPERADMIN') %}
+                            if (!/Admin/.test(row.roles)){
+                            {% endif %}
+                                if (row.enabled) {
+                                    htmlStr += '<a href="/admin/user/lock/' + row.userId + '" class="btn btn-xs btn-warning">Lock</a>';
+                                } else {
+                                    htmlStr += '<a href="/admin/user/unlock/' + row.userId + '" class="btn btn-xs btn-warning">Unlock</a>';
+                                }
+
+                                {% if is_granted('ROLE_SUPERADMIN') %}
+                                    htmlStr += '<a href="/admin/user/spromote/' + row.userId + '" class="btn btn-xs btn-warning"> SuperAdmin</a>';
+                                    htmlStr += '<a href="/admin/user/promote/' + row.userId + '" class="btn btn-xs btn-warning"> Admin</a>';
+                                    htmlStr += '<a href="/admin/user/depromote/' + row.userId + '" class="btn btn-xs btn-warning">User</a>';
+                                {% endif %}
+
+                                htmlStr += '</div><div class="btn-group">';
+                                htmlStr += '<a href="/admin/user/edit/' + row.userId + '" class="btn btn-xs btn-primary">Edit</a>';
+                                htmlStr += '<a href="" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal-sure-delete" data-whatever="' + row.userId + '">Delete</a>';
+                                htmlStr += '</div>';
+
+                            {% if not is_granted('ROLE_SUPERADMIN') %}
+                            }
+                            {% endif %}
+
+
+
+                            return htmlStr;
+                        },
+                        "targets": 6
+                    }
+                ],
+
+                "columns": [
+                    {"data": "userId"},
+                    {"data": "username"},
+                    {"data": "email"},
+                    {"data": "enabled"},
+                    {"data": "roles"},
+                    {"data": "gdpr"},
+                    {"data": "userId"}
+                ],
+                responsive: true,
+                "pagingType": "full_numbers"
+
+            });
+
+            $(selector).on( 'draw.dt', function () {
+                $('#table-user_paginate > a').wrapAll('<div id="table-user_paginate_buttons">')
+                $('div[data-role="Admin"]').parent().parent().addClass('info')
+                $('div[data-role="SuperAdmin"]').parent().parent().addClass('info')
+                $('div[data-status="false"]').parent().parent().addClass('danger')
+
+                $( "td:contains('ROLE_USER')" ).text("User");
+                $( "td:contains('ROLE_ADMIN')" ).text("Admin");
+                $( "td:contains('ROLE_SUPERADMIN')" ).text("SuperAdmin");
+            });
+        });
+    </script>
+
+    <script>
+    $('#modal-sure-delete').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var recipient = button.data('whatever')
+
+      var modal = $(this)
+      modal.find('a').attr('href', '/admin/user/delete/'+recipient)
+    })
+    </script>
+{% endblock javascripts_inline %}

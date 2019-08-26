@@ -1,0 +1,21 @@
+{
+    "name": "Margharet funds",
+	"ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests",
+        "src"
+    ],
+    "dependencies": {
+        "jquery": "*",
+        "bootstrap" : "3.*",
+        "font-awesome": "4.*",
+        "lightbox2" : "2.8.*",
+        "flexslider": "*",
+        "tinymce": "4.2.*"
+        }
+    
+
+}

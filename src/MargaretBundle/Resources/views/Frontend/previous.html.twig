@@ -1,0 +1,82 @@
+{% extends 'MargaretBundle::main.html.twig' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12 col-md-4">
+      <h3>My Applications</h3>
+    </div>
+
+    <div class="col-xs-12 col-md-4">
+      <a class="btn btn-primary" style="margin-top: 15px;" href="{{ path('frontend_apply') }}">New Application</a>
+    </div>
+
+  </div>
+
+  <div class="row" style="margin-top:0px;margin-bottom: 30px;">
+  <div class="col-xs-12 col-md-10 col-md-offset-1 table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for app in apps %}
+          <tr data-id="{{app.id}}"
+
+          {% if app.status == 'approved' %}
+              class="success">
+              <td>{{app.date|date('Y-m-d')}}</td>
+              <td>{{app.name}}</td>
+              <td><i class="fa fa-check" aria-hidden="true"></i> {{app.status}}</td>
+              <td><a class="btn btn-primary" href="/previous/view/{{app.id}}">See more</a></td>
+
+          {% elseif app.status == 'rejected' %}
+              class="danger">
+              <td>{{app.date|date('Y-m-d')}}</td>
+              <td>{{app.name}}</td>
+              <td><i class="fa fa-times" aria-hidden="true"></i> {{app.status}}</td>
+              <td><a class="btn btn-primary" href="/previous/view/{{app.id}}">See more</a></td>
+
+          {% elseif app.locked == false %}
+              >
+              <td>{{app.date|date('Y-m-d')}}</td>
+              <td>{{app.name}}</td>
+              <td><i class="fa fa-clock-o" aria-hidden="true"></i> {{app.status}}</td>
+              <td>
+                <a class="btn btn-primary" href="/previous/edit/{{app.id}}">See more / Edit</a>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#modal-sure-delete" data-whatever="{{app.id}}">Delete</button>
+              </td>
+
+          {% endif %}
+
+          </tr>
+
+        {% endfor %}
+      </tbody>
+
+      <tfooter>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Options</th>
+        </tr>
+      </tfooter>
+
+    </table>
+  </div>
+  </div>
+
+
+
+
+
+
+{% endblock %}
+
+{% block active_apply %}active{% endblock %}

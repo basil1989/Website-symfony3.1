@@ -1,0 +1,39 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+
+{% block page_title %}Images for link {% endblock %}
+{% block page_subtitle %} {{ link.name }} {% endblock %}
+{% block page_content %}
+    <div class="box">
+        <div class="box-body">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="control-label required" for="link_name">File</label>
+                    <input type="file" name="plik" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Upload" class="btn btn-primary btn-xs">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-header"><h5>Uploaded Images</h5></div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-12">
+        {%  for  image in images  %}
+
+            <div class="thumbnail col-xs-3 text-centr">
+               <img src="{{ link.relativePath(image) | imagine_filter('my_thumb') }}"  style="width:100%; height:auto;"/>
+                <div class="text-center">
+                <a href="{{ path('admin_link_image_del',{'id':link.id,'file':link.imageName(image)}) }}" class="btn btn-xs btn-danger" onClick="return confirm('Are you sure?')">Delete Image</a>
+                </div>
+            </div>
+
+        {% endfor %}
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

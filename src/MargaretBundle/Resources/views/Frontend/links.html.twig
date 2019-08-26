@@ -1,0 +1,39 @@
+{%  extends 'MargaretBundle::main.html.twig' %}
+
+{% block content %}
+    {% include 'MargaretBundle:Frontend/partials:page.html.twig' %}
+
+        <div class="col-xs-1"></div>
+    <section class="col-xs-10 links">
+        {% for link in links %}
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-12 title">Organization</div>
+                        <div class="col-md-9 col-xs-12 ">{{ link.name | upper}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-xs-12 title">Website</div>
+                        <div class="col-md-9 col-xs-12"><a href="{{ link.url }}" target="top">{{ link.url }}</a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-xs-12 title">Description</div>
+                        <div class="col-md-9 col-xs-12 ">{{ link.description | raw }}</div>
+                    </div></div>
+                <div class="col-xs-3">
+                    {%  if link.randomImage!=null %}
+                        <img src="{{ link.relativePath(link.randomImage) | imagine_filter('my_thumb') }}"  style="width:100%; height:auto;"/>
+                    {% endif %}
+                </div>
+
+            </div>
+        {% endfor %}
+    </section>
+
+{%  endblock %}
+
+{% block active_links %}active{% endblock %}
+
+{% block seo_title %}{{ page.seoTitle }}{% endblock %}
+{% block seo_keywords %}{{ page.seoKey }}{% endblock %}
+{% block seo_description %}{{ page.seoDesc }}{% endblock %}

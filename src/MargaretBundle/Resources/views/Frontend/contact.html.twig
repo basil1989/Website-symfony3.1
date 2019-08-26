@@ -1,0 +1,19 @@
+{%  extends 'MargaretBundle::main.html.twig' %}
+
+{% block content %}
+    {% include 'MargaretBundle:Frontend/partials:page.html.twig' %}
+
+    <br/><br/>
+    <div class="row">
+        <div class="col-xs-0 col-md-2"></div>
+        <div class="col-xs-12 col-md-8">{{ form(form) }}</div>
+        <div class="col-xs-0 col-md-2"></div>
+    </div>
+
+{%  endblock %}
+
+{% block active_contact %}active{% endblock %}
+
+{% block seo_title %}{{ page.seoTitle }}{% endblock %}
+{% block seo_keywords %}{{ page.seoKey }}{% endblock %}
+{% block seo_description %}{{ page.seoDesc }}{% endblock %}

@@ -1,0 +1,35 @@
+admin_user_index:
+    path:     /
+    defaults: { _controller: 'mrg.controller_as_service.users:indexAction' }
+
+admin_user_datatable:
+    path:     /dataTable
+    defaults: { _controller: 'mrg.controller_as_service.users:dataTableAction' }
+
+admin_user_delete:
+    path:     /delete/{id}
+    defaults: { _controller: 'mrg.controller_as_service.users:deleteAction' }
+
+admin_user_lock:
+    path:     /lock/{id}
+    defaults: { _controller: 'mrg.controller_as_service.users:lockAction' }
+
+admin_user_unlock:
+    path:     /unlock/{id}
+    defaults: { _controller: 'mrg.controller_as_service.users:unlockAction' }
+
+admin_user_promote:
+    path:     /promote/{id}
+    defaults: { _controller: 'mrg.controller_as_service.users:promoteAction' }
+
+admin_user_spromote:
+    path:     /spromote/{id}
+    defaults: { _controller: 'mrg.controller_as_service.users:spromoteAction' }
+
+admin_user_depromote:
+    path:     /depromote/{id}
+    defaults: { _controller: 'mrg.controller_as_service.users:dePromoteAction' }
+
+admin_user_edit:
+    path:     /edit/{id}
+    defaults: { _controller: 'mrg.controller_as_service.users:editAction' }

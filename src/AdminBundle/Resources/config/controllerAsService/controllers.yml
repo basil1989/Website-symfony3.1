@@ -1,0 +1,8 @@
+services:
+    mrg.controller_as_service.application:
+        class: 'AdminBundle\Controller\ApplicationController'
+        arguments: ["@application.cache_adapter", '@service_container']
+
+    mrg.controller_as_service.users:
+        class: 'AdminBundle\Controller\UserController'
+        arguments: ["@application.cache_adapter", '@service_container']

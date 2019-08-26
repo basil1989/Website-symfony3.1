@@ -1,0 +1,13 @@
+{% extends 'AdminBundle::base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block page_title %}User Account {% endblock %}
+{% block page_subtitle  %} {{ user.username }} {% endblock %}
+{% block page_content %}
+<div class="box">
+    <div class="box-body">
+    {{  form(form) }}
+        {{ form_rest(form) }}
+    </div>
+</div>
+{% endblock %}

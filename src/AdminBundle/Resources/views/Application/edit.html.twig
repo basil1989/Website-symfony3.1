@@ -1,0 +1,20 @@
+{% extends 'AdminBundle::base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block page_title %}Application {% endblock %}
+{% block page_subtitle  %} {{ application.name }} {% endblock %}
+{% block page_content %}
+<div class="box">
+    <div class="box-body">
+        <div class="form-group"><label for="">Created by</label>
+            <div  class="form-control " disabled   >{{ application.user }}</div>
+        </div>
+        <div class="form-group"><label for="">Created at</label>
+            <div  class="form-control " disabled  >{{ application.date | date("d-m-Y G:i:s") }}</div>
+        </div>
+    {{  form(form) }}
+        {{ form_rest(form) }}
+        <input type="button" class="btn btn-default" value="Cancel" onClick="history.back();">
+    </div>
+</div>
+{% endblock %}

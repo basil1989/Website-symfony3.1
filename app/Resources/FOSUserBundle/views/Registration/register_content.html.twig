@@ -1,0 +1,45 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+<div class="registeruserform">
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    {{ form_widget(form) }}
+
+    <div id="gdpr-block" class="form-group">
+        <p class="form-control-static">Please confirm you are in agreement with Margaret's Fund keeping your data for
+            the normal purposes of Margaret's Fund activities, in line with our <a href="http://www.margaretsfund.org/privacy-policy/" target="_blank">Privacy Policy</a> and
+            <a href="https://www.margaretsfund.org/terms-conditions/" target="_blank">Terms and Conditions.</a></p>
+        <div class="checkbox">
+            <label>
+                <input id="check-gdpr" type="checkbox"> <b>Please check this to let us know you agree.</b>
+                <!--id="fos_user_registration_form_gdpr" name="fos_user_registration_form[gdpr]"-->
+            </label>
+        </div>
+    </div>
+
+    <div class="center-block text-left">
+        <input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-default" id="register" disabled/>
+    </div>
+    {{ form_end(form) }}
+
+</div>
+<br/><br/>
+<span style="color:#ff0000;font-weight:bold;">*</span> Mandatory field - <span style="font-weight:normal">write NONE if you have no information for a particular box.</span>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#fos_user_registration_form_charityNumber').parent().find('label').addClass('required')
+        $('#fos_user_registration_form_charityNumber').prop('required', true);
+
+        /*We control the state of submit button*/
+        $("#check-gdpr").on("change", function () {
+            if($(this).prop('checked')){
+                $("#register").attr('disabled', false);
+            }
+            else{
+                $("#register").attr('disabled', true);
+            }
+        });
+    })
+</script>

@@ -1,0 +1,102 @@
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% extends 'MargaretBundle::main.html.twig' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12 col-md-4">
+      <h3>New Application</h3>
+    </div>
+
+    <div class="col-xs-12 col-md-4">
+      <a class="btn btn-primary" style="margin-top: 15px;" href="{{ path('frontend_previous') }}">View Previous Application</a>
+    </div>
+
+  </div>
+
+
+  <div class="text-center">
+    <br/>
+    <div class="text-center" style="max-width:825px;margin:auto;">
+      <h3>Please note only a Caring Professional can apply on behalf of the applicant.</h3>
+
+      Please note only a Caring Professional can apply on behalf of the applicant.You must fill in everything, especially the boxes marked
+      <span style="color:#ff0000;font-weight:bold;">*</span>.<br/>
+      If you miss the
+      <span style="color:#ff0000;font-weight:bold;">*</span>
+      parts, your application will be rejected. It is acceptable to write NONE in fields where you have no information.
+    </div>
+  </div>
+  <br/><br/>
+  <div class="row" style="margin-top:0px;margin-bottom: 30px;">
+    <div class="col-md-10 col-md-offset-1 col-xs-12 applyform">
+      {{ form_start(form) }}
+      <h3>Applicant Details</h3>
+      {{ form_row(form.name) }}
+      {{ form_row(form.age) }}
+      {{ form_row(form.address) }}
+      {{ form_row(form.illness) }}
+      {{ form_row(form.purpose) }}
+      {{ form_row(form.amount) }}
+      {{ form_row(form.organisation) }}
+      {{ form_row(form.family) }}
+      {{ form_row(form.taxUk) }}
+      {{ form_row(form.nhs) }}
+      {{ form_row(form.steps) }}
+      <h3>Weekly Income</h3>
+      {{ form_row(form.wages) }}
+      <h3>Benefits</h3>
+      {{ form_row(form.housing) }}
+      {{ form_row(form.tax) }}
+      {{ form_row(form.employment) }}
+      {{ form_row(form.incomesupport) }}
+      {{ form_row(form.childbenefit) }}
+      {{ form_row(form.childtax) }}
+      {{ form_row(form.workingtaxcredit) }}
+      {{ form_row(form.incapacitybenefit) }}
+      {{ form_row(form.carersallowence) }}
+      {{ form_row(form.personalindependence) }}
+      {{ form_row(form.disability) }}
+      {#{{ form_row(form.disability2) }}#}
+      {{ form_row(form.other) }}
+      <h3>Weekly Expenditure</h3>
+      {{ form_row(form.rent) }}
+      {{ form_row(form.mortgages) }}
+      {{ form_row(form.housingcost) }}
+      <h3>Utilities</h3>
+      {{ form_row(form.utilities) }}
+      <h3>House Keeping</h3>
+      {{ form_row(form.food) }}
+      <h3>Children</h3>
+      {{ form_row(form.childcare) }}
+      <h3>Other Expenditure</h3>
+      {{ form_row(form.liabilities) }}
+      {{ form_row(form.maintenance) }}
+      <h3>Travel</h3>
+      {{ form_row(form.fares) }}
+      <h3>Health</h3>
+      {{ form_row(form.specialneeds) }}
+      <h3>Totals</h3>
+      {{ form_row(form.weekincome) }}
+      {{ form_row(form.weekexpenditure) }}
+      {{ form_row(form.savings) }}
+      <h3>Comments</h3>
+      {{ form_row(form.othercomment) }}
+
+      {{ form_rest(form) }}
+      {{ form_end(form) }}
+
+    </div>
+  </div>
+
+
+
+
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <a href="{{ asset('bundles/margaret/download/application2017.doc') }}" style="font-size:20px;">Download Application Form for offline use.</a>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block active_apply %}active{% endblock %}

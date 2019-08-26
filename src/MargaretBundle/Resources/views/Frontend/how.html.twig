@@ -1,0 +1,11 @@
+{%  extends 'MargaretBundle::main.html.twig' %}
+
+{% block content %}
+    {% include 'MargaretBundle:Frontend/partials:page.html.twig' %}
+{%  endblock %}
+
+{% block active_how %}active{% endblock %}
+
+{% block seo_title %}{{ page.seoTitle }}{% endblock %}
+{% block seo_keywords %}{{ page.seoKey }}{% endblock %}
+{% block seo_description %}{{ page.seoDesc }}{% endblock %}

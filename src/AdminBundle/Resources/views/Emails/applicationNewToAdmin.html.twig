@@ -1,0 +1,52 @@
+{% if form is defined %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% endif %}
+<head>
+    <style>
+        body{
+            font:12px tahoma;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+
+    <p>New Application on <a href="https://margaretsfund.org">Margaret's Fund</a>.</p>
+    <p>
+      <strong>Application:</strong><br />
+      Id: #{{ app.id }} <br />
+      Date: {{ app.date | date('d-m-Y') }} <br /><br />
+
+      <strong>Caring Professional:</strong><br />
+      Id: #{{ app.user.id }} <br />
+      Name: {{ app.user.username }}<br />
+      Job title: {{ app.user.jobtitle }}<br />
+      Organization: {{ app.user.organisation }}<br />
+      Charity Number: #{{ app.user.charityNuber }}<br />
+      Work address: {{ app.user.workAddress }}<br />
+      Work postcode: {{ app.user.workPostcode }}<br />
+      Work telephone: {{ app.user.workTelephone }}<br /><br />
+    </p>
+    <p><a href="{{ url('admin_app_view', {'id': app.id}) }}">Application details</a></p>
+
+
+
+    <br /><br /><br /><br />
+    <img src="https://margaretsfund.org/bundles/margaret/img/logo.jpg" width="500px" />
+    <p>
+        Margarets Fund - The fund for women in ill health.<br />
+        P.O. Box 135 | Buntingford SGll 2XJ | <a href="mailto:support@margaretsfund.org">support@margaretsfund.org</a><br />
+        <a href="www.margaretsfund.org">www.margaretsfund.org</a><br />
+        UK Registered Charity n#: 210615<br />
+    </p>
+    <p>
+    <strong>Our grants are made for:</strong><br />
+    Aids for disability | Extra comforts | Convalescent holidays | Clothing | Extra nourishment | Extra heating
+    </p>
+
+    <small>
+    This email message is CONFIDENTIAL and may contain legally privileged information. If you are not the intended recipient, you should not read, copy, distribute, disclose or otherwise use the information in this email. Please telephone or fax us immediately and delete the message from your system. Email is susceptible to data corruption, interception and unauthorised amendment and BoxcoUK accepts no liability for any such corruption, interception or amendment or the consequences thereof.
+    </small>
+
+</body>

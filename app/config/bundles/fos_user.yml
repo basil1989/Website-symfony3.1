@@ -1,0 +1,18 @@
+fos_user:
+    db_driver: orm
+    user_class: AdminBundle\Entity\User
+    firewall_name: main
+    registration:
+        form:
+            type: AdminBundle\Form\RegistrationType
+        confirmation:
+            enabled: true
+    profile:
+        form:
+            type: MargaretBundle\Form\UserType
+    service:
+        mailer: fos_user.mailer.twig_swift
+
+    from_email:
+        address:        no-reply@margaretsfund.org
+        sender_name:    NoReply

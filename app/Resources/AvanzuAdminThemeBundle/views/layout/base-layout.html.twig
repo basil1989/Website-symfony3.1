@@ -1,0 +1,196 @@
+{% import "AvanzuAdminThemeBundle:layout:macros.html.twig" as macro %}
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %}GoodWebsite CMS Admin{% endblock %}</title>
+
+    {# -------------------------------------------------------------------------------------------------- STYLESHEETS #}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/avanzuadmintheme/static/'~ app.environment ~'/styles/admin-lte-all.css') }}" />
+
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.2.0/css/rowReorder.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css"/>-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css"/>
+
+    {% endblock %}
+
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+
+    {# --------------------------------------------------------------------------------------------- JAVASCRIPTS_HEAD #}
+    {%  block javascripts_head %}
+        <script type="text/javascript" src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/modernizr.js') }}"></script>
+        <!--[if lt IE 9]>
+
+        <![endif]-->
+
+    {% endblock %}
+
+</head>
+<body class="{{ admin_skin|default('skin-blue')}}">
+<div class="wrapper">
+
+    {% block avanzu_admin_header %}
+        <header class="main-header">
+            {% block avanzu_logo %}
+                <a href="#" class="logo">
+                    <!-- Add the class icon to your logo image or logo icon to add the margining -->
+                    {{ block('title') }}
+                </a>
+            {% endblock %}
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            {% block avanzu_navbar %}
+                                {{ render(controller('AvanzuAdminThemeBundle:Navbar:messages')) }}
+                                {{ render(controller('AvanzuAdminThemeBundle:Navbar:notifications')) }}
+                                {{ render(controller('AvanzuAdminThemeBundle:Navbar:tasks')) }}
+                                {{ render(controller('AvanzuAdminThemeBundle:Navbar:user')) }}
+                            {% endblock %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </nav>
+        </header>
+    {% endblock %}
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar sidebar-offcanvas">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            {% block avanzu_sidebar %}
+                {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {{ render(controller('AvanzuAdminThemeBundle:Sidebar:userPanel')) }}
+
+                {% endif %}
+                {{ render(controller('AvanzuAdminThemeBundle:Sidebar:menu', {'request':app.request})) }}
+            {% endblock %}
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Right side column. Contains the navbar and content of the page -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                {% block page_title %} {% endblock %}
+                <small>{% block page_subtitle %} {% endblock %}</small>
+            </h1>
+            {% block avanzu_breadcrumb %}
+                {{ render(controller('AvanzuAdminThemeBundle:Breadcrumb:breadcrumb', {'request':app.request, 'title' : block('page_title')})) }}
+            {% endblock %}
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            {% for type, flashes in app.session.flashbag.all %}
+                {% for flash in flashes %}
+                    <div class="alert alert-{{ type }} fade in">
+                        {{ flash }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% block page_content %}{% endblock %}
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    {% block avanzu_admin_footer %}
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.0
+            </div>
+            <strong>Copyright &copy; 2016  GoodWebsite .</strong>
+        </footer>
+    {% endblock %}
+
+</div>
+<!-- ./wrapper -->
+
+
+{% block page_modals %}{% endblock %}
+
+{# ------------------------------------------------------------------------------------------------------ JAVASCRIPTS #}
+{% block javascripts %}
+
+    <script src="{{ asset('bundles/avanzuadmintheme/static/'~app.environment~'/scripts/admin-lte-all.js') }}"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/date-eu.js"></script>
+
+    <script src="{{ asset('assets/tinymce/tinymce.min.js') }}"></script>
+
+    <!--<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>-->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+{% endblock %}
+
+{# ----------------------------------------------------------------------------------------------- JAVASCRIPTS_INLINE #}
+{% block javascripts_inline %}
+{% endblock %}
+
+<script>
+    tinymce.init({
+        selector:'textarea.tinymce',
+        plugins: [
+            'link image charmap   pagebreak',
+            'searchreplace  visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save contextmenu directionality',
+            'template paste textcolor textpattern imagetools    '
+        ],
+        toolbar: 'undo redo | bold italic underline | ' +
+        'alignleft aligncenter alignright | ' +
+        'bullist numlist | link image media jbimages | pagebreak ',
+        relative_urls: false
+
+    });
+
+
+    $(document).ready(function() {
+        $('#table-app').DataTable({
+            "order": [[ 2, "desc" ]],
+            "columnDefs": [
+                {
+                    "targets": [ 4 ],
+                    "visible": true,
+                    "searchable": false,
+                    "sortable" : false
+                },
+                { type: 'date-eu', targets: 2 }
+            ]
+
+
+        });
+
+        $('#table-user').DataTable({
+            "columnDefs": [
+                {
+                    "targets": [ 4 ],
+                    "visible": true,
+                    "searchable": false,
+                    "sortable" : false
+                },]
+
+        });
+    } );
+
+</script>
+</body>
+</html>

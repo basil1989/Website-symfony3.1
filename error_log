@@ -1,0 +1,16 @@
+[28-Nov-2016 20:07:50 Europe/Warsaw] PHP Fatal error:  Uncaught exception 'Symfony\Component\Debug\Exception\ContextErrorException' with message 'Warning: proc_close() has been disabled for security reasons' in /home/margar/symfony/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php:940
+Stack trace:
+#0 [internal function]: Symfony\Component\Debug\ErrorHandler->handleError(2, 'proc_close() ha...', '/home/margar/sy...', 940, Array)
+#1 /home/margar/symfony/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php(940): proc_close(Resource id #1117)
+#2 /home/margar/symfony/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php(729): Symfony\Component\Console\Application->getSttyColumns()
+#3 /home/margar/symfony/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php(690): Symfony\Component\Console\Application->getTerminalDimensions()
+#4 /home/margar/symfony/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php(623): Symfony\Component\Console\Application->getTerminalWidth()
+#5 /home/margar/symfony/v in /home/margar/symfony/vendor/symfony/symfony/src/Symfony/Component/Console/Application.php on line 940
+[11-Jul-2019 16:30:29 Europe/Warsaw] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/margar/sfproject/vendor/symfony/monolog-bundle/DependencyInjection/Configuration.php on line 627
+[11-Jul-2019 16:30:32 Europe/Warsaw] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/margar/sfproject/vendor/twig/twig/lib/Twig/Node.php on line 240
+[11-Jul-2019 16:30:32 Europe/Warsaw] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/margar/sfproject/vendor/symfony/symfony/src/Symfony/Component/Debug/ErrorHandler.php on line 576
+[11-Jul-2019 16:32:23 Europe/Warsaw] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/margar/sfproject/vendor/twig/twig/lib/Twig/Node/Print.php on line 22
+[11-Jul-2019 16:32:23 Europe/Warsaw] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/margar/sfproject/vendor/symfony/symfony/src/Symfony/Component/Debug/ErrorHandler.php on line 576
+[11-Jul-2019 16:32:31 Europe/Warsaw] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/margar/sfproject/vendor/symfony/monolog-bundle/DependencyInjection/Configuration.php on line 627
+[11-Jul-2019 16:32:35 Europe/Warsaw] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/margar/sfproject/vendor/twig/twig/lib/Twig/Node/Expression/Constant.php on line 16
+[11-Jul-2019 16:32:35 Europe/Warsaw] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 20480 bytes) in /home/margar/sfproject/vendor/symfony/symfony/src/Symfony/Component/Debug/ErrorHandler.php on line 576

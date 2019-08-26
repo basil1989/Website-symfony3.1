@@ -1,0 +1,220 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% block page_title %}Applications {% endblock %}
+
+{% block page_content %}
+    <div class="box">
+    <style>
+    #table-app_paginate_buttons a {margin:auto;}
+    table.dataTable tbody th, table.dataTable tbody td {
+        padding: 8px 10px;
+        vertical-align: middle;
+    }
+
+    tr.success td {
+        background-color: #dff0d8 !important;
+    }
+    tr.danger td {
+        background-color: #f2dede !important;
+    }
+    </style>
+        <div class="box-body">
+            <style>#table-app { width:100% !important; }</style>
+            <table id="table-app" style="width:100%;" class="display table table-bordered table-hover ">
+                <thead>
+                  <tr>
+                      <th>Id #</th>
+                      <th>Name</th>
+                      <th>Notes</th>
+                      <th>Caring pro</th>
+                      <th>Created</th>
+                      <th style="min-width:250px;max-width:270px">Status</th>
+                      <th>Options</th>
+                      <th class="hidden"></th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block page_modals %}
+
+<!-- Modal -->
+<div class="modal fade" id="modal-sure-delete" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="myModalLabel">Delete Application</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger progress-bar-striped text-center" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          Are you sure you want to delete this application?<br />
+          Once deleted it can not be recovered
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a class="btn btn-danger" href="">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascripts_inline %}
+    <script>
+        $(window).on('load', function () {
+            var selector = '#table-app';
+
+            table = $(selector).dataTable();
+            table.fnDestroy();
+
+
+            $(selector).DataTable({
+                ajax: "{{ url('admin_app_datatablelow') }}",
+                "order": [[0, "desc"]],
+                "columnDefs": [
+                    {
+                        "targets": [7,8],
+                        "visible": false,
+                        "searchable": true
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            return '<a href="/admin/application/view/' + row.appId + '" data-status="' + row.status + '">' + data + '</a>';
+                        },
+                        "targets": 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            htmlString = '<h6>';
+
+                            /*
+                            if (row.status == 'pending') {
+                                htmlString += 'pending...';
+                            } else if(row.status == 'approved') {
+                                htmlString += '<strong>Type of illness:</strong> ' + row.illness + '<br />';
+                                htmlString += '<strong>Purpose of grant:</strong> ' + row.purpose + '<br />';
+                                htmlString += '<strong>Amount of grant:</strong> ' + row.amount;
+                            } else {
+                                htmlString += 'has been rejected';
+                            }*/
+
+                            htmlString += '<strong>Type of illness:</strong> ' + row.illness + '<br />';
+                            htmlString += '<strong>Purpose of grant:</strong> ' + row.purpose + '<br />';
+                            htmlString += '<strong>Amount of grant:</strong> ' + row.amount;
+
+                            htmlString += '</h6>';
+
+                            return htmlString;
+                        },
+                        "targets": 2
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            if (row.locked) {
+                                return '<div class="btn-group">' +
+                                    '<a href="/admin/application/view/' + row.appId + '" class="btn btn-xs btn-primary">View</a>' +
+                                    '<a href="/admin/application/print/' + row.appId + '" class="btn btn-xs btn-primary">Print</a>' +
+                                    '<a href="" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal-sure-delete" data-whatever="' + row.appId + '">Delete</a>' +
+                                    '</div>';
+                            }
+                            return '<div class="btn-group">' +
+                                '<a href="/admin/application/view/' + row.appId + '" class="btn btn-xs btn-primary">View</a>' +
+                                '<a href="/admin/application/print/' + row.appId + '" class="btn btn-xs btn-primary">Print</a>' +
+                                '<a href="/admin/application/edit/' + row.appId + '" class="btn btn-xs btn-primary">Edit</a>' +
+                                '<a href="" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal-sure-delete" data-whatever="' + row.appId + '">Delete</a>' +
+                                '</div>';
+                        },
+                        "targets": 6
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            htmlString = '<span>';
+
+                            // In the database "pending" is the status by default. Since originally there were only 3 statuses (pending,
+                            // approved, rejected) but the client required a change in wording, we will simply modify the text on display.
+                            if (row.status == 'pending') {
+                              htmlString += 'waiting';
+                            } else if (row.status == 'waiting') {
+                              htmlString += 'pending';
+                            } else {
+                              htmlString += row.status;
+                            }
+                            htmlString += '</span><div class="clearfix"></div>';
+
+                            if (row.locked === false && row.status == 'pending') {
+                                htmlString += '<div class="btn-group">' +
+                                    '<a href="/admin/application/approve/' + row. appId + '" class="btn btn-xs btn-primary">Approve</a>' +
+                                    '<a href="/admin/application/reject/' + row.appId + '" class="btn btn-xs btn-danger">Reject</a>' +
+                                    '<a href="/admin/application/wait/' + row.appId + '" class="btn btn-xs btn-default">Pending</a>' +
+                                    '<a href="/admin/application/withdraw/' + row.appId + '" class="btn btn-xs btn-default">Withdraw</a>' +
+                                    '<a href="/admin/application/pledge/' + row.appId + '" class="btn btn-xs btn-default">Pledge</a>' +
+                                    '</div>';
+                            } else if(row.status == 'pledged') {
+                              htmlString += '<a href="/admin/application/approve/' + row.appId + '" class="btn btn-xs btn-primary">Approve</a>';
+                            } else if(row.status == 'waiting') {
+                              htmlString += '<div class="btn-group">' +
+                                  '<a href="/admin/application/approve/' + row. appId + '" class="btn btn-xs btn-primary">Approve</a>' +
+                                  '<a href="/admin/application/reject/' + row.appId + '" class="btn btn-xs btn-danger">Reject</a>' +
+                                  '<a href="/admin/application/withdraw/' + row.appId + '" class="btn btn-xs btn-default">Withdraw</a>' +
+                                  '<a href="/admin/application/pledge/' + row.appId + '" class="btn btn-xs btn-default">Pledge</a>' +
+                                  '</div>';
+                            } else if(row.locked) {
+                                htmlString += '<span class="btn btn-sm btn-warning">LOCKED</span>';
+                                htmlString += '<span>' + row.statusChangeDate +'</span>';
+                            } else {
+                                htmlString += '<span>' + row.statusChangeDate +'</span>';
+                            }
+
+                            return htmlString;
+                        },
+                        "targets": 5
+                    }
+                ],
+
+                "columns": [
+                    {"data": "appId"},
+                    {"data": "name"},
+                    {"data": "status"},
+                    {"data": "userName"},
+                    {"data": "date"},
+                    {"data": "status"},
+                    {"data": "locked"},
+                    {"data": "statusChangeDate"},
+                    {"data": "appId"}
+                ],
+                responsive: true,
+                "pagingType": "full_numbers"
+
+            });
+
+            $(selector).on( 'draw.dt', function () {
+                $('#table-app_paginate > a').wrapAll('<div id="table-app_paginate_buttons">')
+                $('a[data-status="approved"]').parent().parent().addClass('success')
+                $('a[data-status="waiting"]').parent().parent().addClass('info')
+                $('a[data-status="withdrawn"]').parent().parent().addClass('primary')
+                $('a[data-status="rejected"]').parent().parent().addClass('danger')
+                $('a[data-status="pledged"]').parent().parent().addClass('info')
+            });
+
+        });
+    </script>
+    <script>
+    $('#modal-sure-delete').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      var recipient = button.data('whatever')
+
+      var modal = $(this)
+      modal.find('a').attr('href', '/admin/application/del/'+recipient)
+    })
+    </script>
+{% endblock javascripts_inline %}

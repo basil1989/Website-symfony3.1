@@ -1,0 +1,13 @@
+admin:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /admin/
+
+frontend:
+    resource: "@MargaretBundle/Resources/config/routing.yml"
+
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"

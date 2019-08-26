@@ -1,0 +1,51 @@
+admin_app_index:
+    path:     /
+    defaults: { _controller: 'mrg.controller_as_service.application:indexAction' }
+
+admin_app_datatable:
+    path:     /getDataTable
+    defaults: { _controller: 'mrg.controller_as_service.application:getTableData' }
+
+admin_app_datatablelow:
+    path:     /getDataTableLow
+    defaults: { _controller: 'mrg.controller_as_service.application:getTableDataLow' }
+
+admin_app_show:
+    path:     /show/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:showAction' }
+
+admin_app_del:
+    path:     /del/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:delAction' }
+
+admin_app_edit:
+    path:     /edit/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:edit' }
+
+admin_app_print:
+    path:     /print/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:printit' }
+
+admin_app_view:
+    path:     /view/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:viewAction' }
+
+admin_app_approve:
+    path:     /approve/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:approveAction' }
+
+admin_app_withdraw:
+    path:     /withdraw/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:withdrawAction' }
+
+admin_app_wait:
+    path:     /wait/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:waitAction' }
+
+admin_app_pledge:
+    path:     /pledge/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:pledgeAction' }
+
+admin_app_reject:
+    path:     /reject/{id}
+    defaults: { _controller: 'mrg.controller_as_service.application:rejectAction' }

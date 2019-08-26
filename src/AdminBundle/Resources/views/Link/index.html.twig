@@ -1,0 +1,34 @@
+{% extends 'AdminBundle::base.html.twig' %}
+
+{% block page_title %}Links   <div class="" style="float:right;"><a href="{{ path("admin_link_add") }}" class="btn btn-primary"> Add Link</a></div>{% endblock %}
+{% block page_content %}
+
+    <div class="box">
+
+
+        <div class="box-body">
+            <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Url</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for link in links %}
+                    <tr>
+                        <td>{{ link.name }}</td>
+                        <td>{{ link.url }}</td>
+                        <td class="text-right">
+                            <a href="{{ path('admin_link_images',{'id':link.id}) }}" class="btn btn-xs btn-primary">Images</a>
+                            <a href="{{ path('admin_link_edit',{'id':link.id}) }}" class="btn btn-xs btn-primary">Edit</a>
+                            <a href="{{ path('admin_link_del',{'id':link.id}) }}" class="btn btn-xs btn-danger" onClick="return confirm('Are You sure') ">Delete</a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

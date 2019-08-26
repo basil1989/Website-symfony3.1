@@ -1,0 +1,14 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <br/><br/>
+    {{ include('FOSUserBundle:Security:login_content.html.twig') }}
+
+    <br/><br/>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <a href="{{ path('fos_user_registration_register') }}">I don't have a caring professional account yet. Create an account</a><br/>
+            <a href="{{ path('fos_user_resetting_request') }}">I don't remember my password. Reset Password</a><br/>
+        </div>
+    </div>
+{% endblock fos_user_content %}

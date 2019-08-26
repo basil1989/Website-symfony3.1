@@ -1,0 +1,28 @@
+admin_main:
+    resource: "@AdminBundle/Controller/DefaultController.php"
+    type:     annotation
+
+admin_page:
+    resource: "@AdminBundle/Controller/PageController.php"
+    type:     annotation
+
+admin_email:
+    resource: "@AdminBundle/Controller/EmailTemplateController.php"
+    type:     annotation
+
+admin_link:
+    resource: "@AdminBundle/Controller/LinkController.php"
+    type:     annotation
+
+admin_app:
+    resource: "routes/application.yml"
+    prefix: "/application"
+
+admin_user:
+    resource: "routes/users.yml"
+    prefix: "/user"
+
+avanzu_admin_profile:
+    path: /profile/{userid}/
+avanzu_admin_logout:
+    path: /logout

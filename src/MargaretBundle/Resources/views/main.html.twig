@@ -1,0 +1,281 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Margaret's Fund | {% block seo_title %}{% endblock %}</title>
+  <meta name="description" content="{% block seo_description %}{% endblock %}">
+  <meta name="keywords" content="{% block seo_keywords %}{% endblock %}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="{{ asset('bundles/margaret/css/normalize.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/margaret/css/main.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/margaret/css/nav.min.css') }}">
+  <style media="screen">
+    #logo-name,
+    #logo-name-m {
+      font-family: 'Open Sans', sans-serif;
+      color: #fff;
+    }
+
+    #logo-name-m {
+      float: left;
+    }
+
+    #logo-flower {
+      width: 50px;
+      position: relative;
+      right: 100px;
+      top: -75px;
+    }
+
+    #logo-flower-m {
+      width: 20px;
+      position: relative;
+      right: 33px;
+      top: 13px;
+    }
+
+    #gdpr-block{
+      margin-bottom: 50px;
+    }
+
+    @media screen and (max-width: 768px) {
+      /* For Tablets: */
+      .top {
+        margin-top: 0px !important;
+      }
+      .navbar {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-48966112-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-48966112-1');
+  </script>
+
+
+<body>
+  <div class="container">
+
+
+
+
+    <div class="row top bluebackground">
+
+      <div class="col-xs-12">
+
+        <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <h1 id="logo-name-m" class="visible-xs-block"><strong>Margaret s</strong></h1>
+              <img id="logo-flower-m" src="{{ asset('bundles/margaret/img/mflower.png') }}" class="visible-xs-block" alt="Margaret's Flower">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav text-center">
+                {#
+                <li class="{% block active_about %}{% endblock %}">
+                  <a href="{{ path('frontend_index') }}">ABOUT MARGARET'S</a>
+                </li>
+                <li class="{% block active_how %}{% endblock %}">
+                  <a href="{{ path('frontend_how') }}">HOW WE HELP</a>
+                </li>
+                <li class="{% block active_common %}{% endblock %}">
+                  <a href="{{ path('frontend_common') }}">COMMON QUESTIONS</a>
+                </li>
+                #}
+                <li class="{% block active_apply %}{% endblock %}">
+                  <a href="{{ path('frontend_apply') }}">APPLY FOR FUNDS</a>
+                </li>
+                {#
+                <li class="{% block active_donate %}{% endblock %}">
+                  <a href="{{ path('frontend_donate') }}">DONATE TO MARGARET'S</a>
+                </li>
+                #}
+
+                {% if app.user %}
+                <li role="presentation" class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                    ACCOUNT <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
+                    <li>
+                      <a href="{{ path('admin_default_index') }}">
+                           <i class="fa fa-lock" aria-hidden="true"></i>
+                           Admin Section
+                         </a>
+                    </li>
+                    {% endif %}
+                    <li>
+                      <a href="{{ path('frontend_previous') }}">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        Previous Applications
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ path('fos_user_profile_edit') }}">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                        Account Settings
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{{ path('fos_user_security_logout') }}">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                {% else %}
+                <li class="{% block active_login %}{% endblock %}">
+                  <a href="{{ path('fos_user_security_login') }}">LOGIN</a>
+                </li>
+                {% endif %}
+
+              </ul>
+
+            </div>
+          </div>
+        </nav>
+
+
+      </div>
+    </div>
+    <div class="row bluebackground hidden-xs">
+      <div class="col-xs-12 logo text-center" style="padding-bottom:10px;">
+        <h1 id="logo-name"><strong>Margaret s</strong></h1>
+        <img id="logo-flower" src="{{ asset('bundles/margaret/img/mflower.png') }}" alt="Margaret's Flower">
+      </div>
+    </div>
+    <div class="row bluebackground">
+
+    </div>
+    <div class="row   ">
+      <div class="col-xs-12 text-center title">
+        <h2 style="color:#990000;">The Fund For Women in ill health</h2></div>
+    </div>
+    <div style="">
+      <div class="row content">
+        <div class="col-xs-12">
+          {% block content %} {% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <div class="row bluebackground">
+      <div class="col-xs-12 footer text-center">
+        {#
+        <a href="{{ path('frontend_contact') }}">CONTACT US</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{{ path('frontend_donate') }}">DONATE TO MARGARET'S</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{{ path('frontend_links') }}" style="margin-right: 20px">LINKS</a>
+        <a href="https://margaretsfund.org/privacy-policy/" style="margin-right: 20px">PRIVACY NOTICE</a>
+        <a href="https://margaretsfund.org/terms-conditions/">TERMS & CONDITIONS</a>
+        #}
+        <a href="https://margaretsfund.co.uk/links"  style="margin-right: 20px">LINKS</a>
+        <a href="https://margaretsfund.co.uk/privacy-notice/"style="margin-right: 20px">PRIVACY NOTICE</a>
+        <a href="https://margaretsfund.co.uk/terms-and-conditions/">TERMS & CONDITIONS</a>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal-sure-delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title text-center" id="myModalLabel">Delete Application</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger progress-bar-striped text-center" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Are you sure you want to delete this application?<br /> Once deleted it can not be recovered
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <a class="btn btn-danger" href="">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ asset('assets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('bundles/margaret/js/plugins.js') }}"></script>
+  <script src="{{ asset('bundles/margaret/js/main.js') }}"></script>
+
+  <script>
+    $('#modal-sure-delete').on('show.bs.modal', function(event) {
+      var button = $(event.relatedTarget)
+      var recipient = button.data('whatever')
+
+      var modal = $(this)
+      modal.find('a').attr('href', '/deleted.html/' + recipient)
+    })
+  </script>
+
+  <!-- Google Code for Remarketing Tag -->
+  <script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 979773429;
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = false;
+    /* ]]> */
+  </script>
+  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
+  <noscript>
+    <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/979773429/?guid=ON&amp;script=0"/>
+    </div>
+  </noscript>
+
+
+</body>
+
+</html>
